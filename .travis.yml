@@ -1,0 +1,20 @@
+language: gcc
+
+matrix:
+  include:
+    - env:
+        - FC=pgi
+    - addons:
+        apt:
+          packages:
+          - gfortran
+      env:
+        - FC=gfortran
+
+before_install:
+  - if [[ ${FC} == "pgi" ]]; then ./CI/install-pgi.sh; fi
+
+script:
+  - ${FC}
+
+
