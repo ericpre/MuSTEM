@@ -11,9 +11,10 @@ matrix:
           - libfftw3-dev
       env:
         - FC=gfortran
-    - env:
-        - FC=ifort
-        - COMPONENTS="icc,ifort,mkl"
+        - makefile=GFortranMakefile
+    #- env:
+    #    - FC=ifort
+    #    - COMPONENTS="icc,ifort,mkl"
 
 before_install:
   - if [[ ${FC} == "pgf90" ]]; then bash CI/install-pgi.sh --mpi; fi
@@ -21,6 +22,6 @@ before_install:
 
 script:
   - source ~/.bashrc  # activate intel compilers
-  - ${FC}
+  - make -f ${makefile}
 
 
