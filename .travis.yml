@@ -3,16 +3,17 @@ language: gcc
 matrix:
   include:
     - env:
-        - FC=pgi
+        - FC=pgf90
     - addons:
         apt:
           packages:
           - gfortran
+          - libfftw3-dev
       env:
         - FC=gfortran
 
 before_install:
-  - if [[ ${FC} == "pgi" ]]; then ./CI/install-pgi.sh; fi
+  - if [[ ${FC} == "pgf90" ]]; then bash CI/install-pgi.sh --mpi; fi
 
 script:
   - ${FC}
