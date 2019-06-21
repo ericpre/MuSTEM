@@ -10,16 +10,18 @@ precision = single
 
 #PGI compiler install directory
 PGIDIR = /opt/pgi/linux86-64
-PGIIDIR = -I$(PGIDIR)/18.10/include -I$(PGIDIR)/2018/include \
-          -I$(PGIDIR)/2018/cuda/$(CUDA_VER)/include
-PGILIBS = -L$(PGIDIR)/18.10/lib -L$(PGIDIR)/2018/lib \
-          -L$(PGIDIR)/2018/cuda/$(CUDA_VER)/lib64 -lcuda -lcudafor -lcufft \
+PGIVER = 2019
+CUDA_VER = 10.1
+PGIIDIR = -I$(PGIDIR)/$(PGIVER)/include \
+          -I$(PGIDIR)/$(PGIVER)/cuda/$(CUDA_VER)/include
+PGILIBS = -L$(PGIDIR)/$(PGIVER)/lib \
+          -L$(PGIDIR)/$(PGIVER)/cuda/$(CUDA_VER)/lib64 -lcuda -lcudafor -lcufft \
 					-lcusparse -lcudart -lfftw3 -lfftw3f
 
 #FFTW lib and directories
-FFTWdir = /usr/local
+FFTWdir = /usr
 FFTWIDIR = -I$(FFTWdir)/include
-FFTWLIBS = -L$(FFTWdir)/lib/
+FFTWLIBS = -L$(FFTWdir)/lib
 
 SRCS_f90d1 = \
 m_multislice.f90 \

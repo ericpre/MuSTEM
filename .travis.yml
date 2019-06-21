@@ -4,6 +4,7 @@ matrix:
   include:
     - env:
         - FC=pgf90
+        - makefile=Makefile
     - addons:
         apt:
           packages:
@@ -17,11 +18,11 @@ matrix:
     #    - COMPONENTS="icc,ifort,mkl"
 
 before_install:
-  - if [[ ${FC} == "pgf90" ]]; then bash CI/install-pgi.sh --mpi; fi
+  - if [[ ${FC} == "pgf90" ]]; then bash CI/install-pgi.sh --mpi --nvidia; fi
   - if [[ ${FC} == "ifort" ]]; then bash CI/install-icc.sh --components "${COMPONENTS}"; fi
 
 script:
-  - source ~/.bashrc  # activate intel compilers
+  #- source ~/.bashrc  # activate intel compilers
   - make -f ${makefile}
 
 
