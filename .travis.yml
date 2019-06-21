@@ -1,0 +1,26 @@
+language: gcc
+
+matrix:
+  include:
+    - env:
+        - FC=pgf90
+    - addons:
+        apt:
+          packages:
+          - gfortran
+          - libfftw3-dev
+      env:
+        - FC=gfortran
+    - env:
+        - FC=ifort
+        - COMPONENTS="icc,ifort,mkl"
+
+before_install:
+  - if [[ ${FC} == "pgf90" ]]; then bash CI/install-pgi.sh --mpi; fi
+  - if [[ ${FC} == "ifort" ]]; then bash CI/install-icc.sh --components "${COMPONENTS}"; fi
+
+script:
+  - source ~/.bashrc  # activate intel compilers
+  - ${FC}
+
+
